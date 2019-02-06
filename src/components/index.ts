@@ -2,8 +2,9 @@
 // ─── COMMON ─────────────────────────────────────────────────────────────────────
 //
 
-export { default as Message } from './common/Message/Message';
-export { default as MessageButton } from './common/MessageButton/MessageButton';
+export { default as Alert } from './common/Alert/Alert';
+export { default as AlertButton } from './common/AlertButton/AlertButton';
+export { default as SubContent } from './common/SubContent/SubContent';
 
 //
 // ─── PAGES ──────────────────────────────────────────────────────────────────────

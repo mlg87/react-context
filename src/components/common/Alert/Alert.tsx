@@ -1,38 +1,41 @@
+import { Alert as AntAlert } from 'antd';
 import * as React from 'react';
-import { MessageProvider } from '../../../contexts/MessageContext';
-import styles from './Message.module.scss';
+import { AlertProvider, AlertType } from '../../../contexts/AlertContext';
+import styles from './Alert.module.scss';
 
-export default class Message extends React.Component<{}, IMessageState> {
+const initialState: IAlertState = {
+  alert: undefined,
+  type: 'warning'
+};
 
-  public state: IMessageState = {
-    message: undefined
-  };
+export default class Alert extends React.Component<{}, IAlertState> {
+
+  public state: IAlertState = initialState;
 
   constructor(props) {
 
     super(props);
 
-    this.handleMessageUpdate = this.handleMessageUpdate.bind(this);
+    this.handleAlertUpdate = this.handleAlertUpdate.bind(this);
 
   }
 
   public render() {
 
-    const { message } = this.state;
+    const { alert, type } = this.state;
 
     const providerValue = {
-      message,
-      onMessageUpdate: this.handleMessageUpdate
+      alert,
+      type,
+      onAlertUpdate: this.handleAlertUpdate
     };
 
-    /* tslint:disable:no-console */
-    console.log('providerValue', providerValue);
-
     return (
-      <MessageProvider value={providerValue}>
+      <AlertProvider value={providerValue}>
         {this.renderContent()}
+        {/* children will be most of the app */}
         {this.props.children}
-      </MessageProvider>
+      </AlertProvider>
     );
 
   }
@@ -43,20 +46,15 @@ export default class Message extends React.Component<{}, IMessageState> {
 
   private renderContent() {
 
-    const { message } = this.state;
+    const { alert, type } = this.state;
 
-    if (!message) {
+    if (!alert) {
 
       return null;
 
     }
 
-    return (
-      <div className={styles.container}>
-        <span>{message}</span>
-        <button onClick={() => this.handleDismiss()}>Dismiss</button>
-      </div>
-    );
+    return <AntAlert banner closable message={alert} onClose={() => this.handleDismiss()} type={type} />;
 
   }
 
@@ -66,13 +64,13 @@ export default class Message extends React.Component<{}, IMessageState> {
 
   private handleDismiss() {
 
-    this.setState({ message: undefined });
+    this.setState(initialState);
 
   }
 
-  private handleMessageUpdate(message: string) {
+  private handleAlertUpdate(alert: string, type: AlertType) {
 
-    this.setState({ message });
+    this.setState({ alert, type });
 
   }
 
@@ -82,6 +80,7 @@ export default class Message extends React.Component<{}, IMessageState> {
 // ─── INTERFACES ─────────────────────────────────────────────────────────────────
 //
 
-export interface IMessageState {
-  readonly message?: string;
+export interface IAlertState {
+  readonly alert?: string;
+  readonly type: AlertType;
 }
