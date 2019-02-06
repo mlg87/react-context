@@ -3,35 +3,25 @@ import * as React from 'react';
 import { AlertProvider, AlertType } from '../../../contexts/AlertContext';
 import styles from './Alert.module.scss';
 
-const initialState: IAlertState = {
-  alert: undefined,
-  type: 'warning'
-};
-
 export default class Alert extends React.Component<{}, IAlertState> {
-
-  public state: IAlertState = initialState;
 
   constructor(props) {
 
     super(props);
 
     this.handleAlertUpdate = this.handleAlertUpdate.bind(this);
+    this.state = {
+      alert: undefined,
+      type: 'warning',
+      onAlertUpdate: this.handleAlertUpdate
+    };
 
   }
 
   public render() {
 
-    const { alert, type } = this.state;
-
-    const providerValue = {
-      alert,
-      type,
-      onAlertUpdate: this.handleAlertUpdate
-    };
-
     return (
-      <AlertProvider value={providerValue}>
+      <AlertProvider value={this.state}>
         {this.renderContent()}
         {/* children will be most of the app */}
         {this.props.children}
@@ -64,7 +54,7 @@ export default class Alert extends React.Component<{}, IAlertState> {
 
   private handleDismiss() {
 
-    this.setState(initialState);
+    this.setState({ alert: undefined, type: 'warning' });
 
   }
 
@@ -82,5 +72,6 @@ export default class Alert extends React.Component<{}, IAlertState> {
 
 export interface IAlertState {
   readonly alert?: string;
+  readonly onAlertUpdate: (alert: string, type: AlertType) => void;
   readonly type: AlertType;
 }

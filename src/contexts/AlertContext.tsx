@@ -1,8 +1,27 @@
 import * as React from 'react';
 
+export const OBSERVED_BITS = {
+  alert: 0b10,
+  type: 0b1
+};
+
+const calculateChangedBits = (oldProps, newProps) => {
+
+  if (oldProps.type !== newProps.type) {
+
+    return OBSERVED_BITS.type;
+
+  } else {
+
+    return OBSERVED_BITS.alert;
+
+  }
+
+};
+
 // this is a little hack to get ts to shut up. most of the time youll be creating a context
 // that doesnt have a default value
-export const AlertContext = React.createContext<IAlertContext | null>(null);
+export const AlertContext = React.createContext<IAlertContext | null>(null, calculateChangedBits);
 export interface IAlertContext {
   readonly alert?: string;
   readonly type: AlertType;
