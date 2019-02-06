@@ -1,11 +1,32 @@
 import * as React from 'react';
+import { IAlertContext, withAlertContext } from '../../../contexts/AlertContext';
 
-export default class Home extends React.Component {
+class Home extends React.Component<IHomeProps> {
 
     public render() {
 
-        return <div>Home</div>;
+        const { alertContext } = this.props;
+
+        return (
+            <div>
+                <div>Home</div>
+                <div>
+                    <div>Current alert: {alertContext.alert}</div>
+                    <div>Current alert type: {alertContext.type}</div>
+                </div>
+            </div>
+        );
 
     }
 
+}
+
+export default withAlertContext(Home);
+
+//
+// ─── INTERFACES ─────────────────────────────────────────────────────────────────
+//
+
+export interface IHomeProps {
+    readonly alertContext: IAlertContext;
 }
