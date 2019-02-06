@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AlertButton } from '../..';
+import { AlertButton, HookReader } from '../../index';
 
 export default class Trips extends React.Component {
 
@@ -13,6 +13,7 @@ export default class Trips extends React.Component {
                     body="Good Times"
                     type="info"
                 />
+                <HookReader />
             </div>
         );
 

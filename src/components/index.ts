@@ -5,6 +5,7 @@
 export { default as Alert } from './common/Alert/Alert';
 export { default as AlertButton } from './common/AlertButton/AlertButton';
 export { default as ContextDisplay } from './common/ContextDisplay/ContextDisplay';
+export { default as HookReader } from './common/HookReader/HookReader';
 export { default as SubContent } from './common/SubContent/SubContent';
 
 //
