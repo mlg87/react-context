@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MessageConsumer, MessageContext } from '../../contexts/MessageContext';
+import { MessageConsumer, MessageContext } from '../../../contexts/MessageContext';
 
 export default class MessageButton extends React.Component<IMessageButtonProps> {
 

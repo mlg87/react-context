@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MessageProvider } from '../../contexts/MessageContext';
+import { MessageProvider } from '../../../contexts/MessageContext';
 import styles from './Message.module.scss';
 
 export default class Message extends React.Component<{}, IMessageState> {
@@ -31,6 +31,7 @@ export default class Message extends React.Component<{}, IMessageState> {
     return (
       <MessageProvider value={providerValue}>
         {this.renderContent()}
+        {this.props.children}
       </MessageProvider>
     );
 
